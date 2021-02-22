@@ -65,7 +65,7 @@ $containerBuilder->register('framework', Framework::class)
     ->setArguments([
         new Reference('dispatcher'),
         new Reference('container_controller_resolver'),
-        new Reference('controller_resolver'),
+        //new Reference('controller_resolver'),
         new Reference('request_stack'),
         new Reference('argument_resolver'),
         //new Reference('demo.service'),
