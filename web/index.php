@@ -19,10 +19,4 @@ $request = Request::createFromGlobals();
 
 $response = $container->get('framework')->handle($request);
 
-
-//$response = $container->get('dependent.controller')->helloWorld();
-//var_dump($response);
-
-
-
 $response->send();
