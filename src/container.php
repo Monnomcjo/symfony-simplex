@@ -32,16 +32,29 @@ $containerBuilder->register('listener.exception', HttpKernel\EventListener\Error
     ->setArguments(['Calendar\Controller\ErrorController::exception'])
 ;
 
+/*
 // add demo service into the service container
 $containerBuilder->register('demo.service', '\Demo\DemoService');
 
 // add dependent service into the controller container
 $containerBuilder->register('dependent.controller', '\Demo\DemoController')
     ->setArguments([new Reference('demo.service')]);
+*/
+
 
 // fetch service from the service container
 // Echoing Works fine! But no service in controller
 //echo $containerBuilder->get('dependent.controller')->helloWorld();
+
+$containerBuilder->register('container_controller_resolver', HttpKernel\Controller\ContainerControllerResolver::class)
+    ->setArguments([new Reference('service_container')]);
+
+// add demo service into the service container
+$containerBuilder->register(\Demo\DemoService::class, \Demo\DemoService::class);
+
+// add dependent service into the controller container
+$containerBuilder->register(\Demo\DemoController::class,\Demo\DemoController::class)
+    ->setArguments([new Reference(\Demo\DemoService::class)]);
 
 $containerBuilder->register('dispatcher', EventDispatcher\EventDispatcher::class)
     ->addMethodCall('addSubscriber', [new Reference('listener.router')])
@@ -51,11 +64,12 @@ $containerBuilder->register('dispatcher', EventDispatcher\EventDispatcher::class
 $containerBuilder->register('framework', Framework::class)
     ->setArguments([
         new Reference('dispatcher'),
+        new Reference('container_controller_resolver'),
         new Reference('controller_resolver'),
         new Reference('request_stack'),
         new Reference('argument_resolver'),
-        new Reference('demo.service'),
-        new Reference('dependent.controller'),
+        //new Reference('demo.service'),
+        //new Reference('dependent.controller'),
     ])
 ;
 
