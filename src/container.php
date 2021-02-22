@@ -35,10 +35,6 @@ $containerBuilder->register('listener.exception', HttpKernel\EventListener\Error
 // add demo service into the service container
 $containerBuilder->register('demo.service', '\Demo\DemoService');
 
-// add dependent service into the service container
-$containerBuilder->register('dependent.service', '\Demo\DependentService')
-    ->setArguments([new Reference('demo.service')]);
-
 // add dependent service into the controller container
 $containerBuilder->register('dependent.controller', '\Demo\DemoController')
     ->setArguments([new Reference('demo.service')]);
@@ -59,7 +55,6 @@ $containerBuilder->register('framework', Framework::class)
         new Reference('request_stack'),
         new Reference('argument_resolver'),
         new Reference('demo.service'),
-        new Reference('dependent.service'),
         new Reference('dependent.controller'),
     ])
 ;
