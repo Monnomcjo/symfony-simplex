@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpKernel;
 use Symfony\Component\Routing;
 
+use Doctrine\Persistence\ManagerRegistry;
+
 $containerBuilder = new DependencyInjection\ContainerBuilder();
 $containerBuilder->register('context', Routing\RequestContext::class);
 $containerBuilder->register('matcher', Routing\Matcher\UrlMatcher::class)
@@ -41,11 +43,8 @@ $containerBuilder->register(\Demo\DemoController::class,\Demo\DemoController::cl
 /* New Demo repository tests*/
 $containerBuilder->register(\Demo\DemoEntity::class, \Demo\DemoEntity::class);
 
-$containerBuilder->register('my_service_entity_repository', Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository::class)
-    ->setArguments([new Reference('doctrine.orm.entity_manager')]);
-
 $containerBuilder->register(\Demo\DemoRepository::class, \Demo\DoctrineDemoRepository::class)
-    ->setArguments([new Reference(\Demo\DemoEntity::class)]);
+    ->setArguments([new Reference(Doctrine\Persistence\ManagerRegistry::class)]);
 
 $containerBuilder->register(\Demo\DemoServiceWithRepository::class,\Demo\DemoServiceWithRepository::class)
     ->setArguments([new Reference(\Demo\DemoRepository::class)]);
