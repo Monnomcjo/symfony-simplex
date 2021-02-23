@@ -41,13 +41,13 @@ $containerBuilder->register(\Demo\DemoController::class,\Demo\DemoController::cl
     ->setArguments([new Reference(\Demo\DemoService::class)]);
 
 /* New Demo repository tests*/
-$containerBuilder->register(\Demo\DemoEntity::class, \Demo\DemoEntity::class);
+//$containerBuilder->register(\Demo\DemoEntity::class, \Demo\DemoEntity::class);
 
-$containerBuilder->register(\Demo\DemoRepository::class, \Demo\DoctrineDemoRepository::class)
-    ->setArguments([new Reference(Doctrine\Persistence\ManagerRegistry::class)]);
+$containerBuilder->register(\Demo\DoctrineDemoRepository::class, \Demo\DoctrineDemoRepository::class)
+    ->setArguments([new Reference(\Doctrine\Persistence\ManagerRegistry::class)]);
 
 $containerBuilder->register(\Demo\DemoServiceWithRepository::class,\Demo\DemoServiceWithRepository::class)
-    ->setArguments([new Reference(\Demo\DemoRepository::class)]);
+    ->setArguments([new Reference(\Demo\DoctrineDemoRepository::class)]);
 
 
 $containerBuilder->register('dispatcher', EventDispatcher\EventDispatcher::class)

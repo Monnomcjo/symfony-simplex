@@ -2,15 +2,15 @@
 
 namespace Demo;
 
-use Demo\DemoRepository;
+use Demo\DoctrineDemoRepository;
 
 class DemoServiceWithRepository
 {
-  private $demoRepository;
+  private $doctrineDemoRepository;
 
-  public function __construct(DemoRepository $demoRepository)
+  public function __construct(DoctrineDemoRepository $doctrineDemoRepository)
   {
-      $this->demoRepository = $demoRepository;
+      $this->doctrineDemoRepository = $doctrineDemoRepository;
   }
 
   public function helloWorld()

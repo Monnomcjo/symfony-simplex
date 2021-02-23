@@ -5,12 +5,9 @@ namespace Demo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-use Demo\DemoEntity;
-use Demo\DemoRepository;
+use Demo\DoctrineDemoEntity;
 
-use Demo\DoctrineDemoEntity as DoctrineDemoEntity;
-
-class DoctrineDemoRepository extends ServiceEntityRepository implements DemoRepository
+class DoctrineDemoRepository extends ServiceEntityRepository
 {
 
     public function __construct(ManagerRegistry $registry)
