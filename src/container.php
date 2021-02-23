@@ -16,8 +16,6 @@ $containerBuilder->register('matcher', Routing\Matcher\UrlMatcher::class)
 ;
 $containerBuilder->register('request_stack', HttpFoundation\RequestStack::class);
 
-$containerBuilder->register('controller_resolver', HttpKernel\Controller\ControllerResolver::class);
-
 $containerBuilder->register('argument_resolver', HttpKernel\Controller\ArgumentResolver::class);
 
 $containerBuilder->register('listener.router', HttpKernel\EventListener\RouterListener::class)
@@ -40,10 +38,17 @@ $containerBuilder->register(\Demo\DemoService::class, \Demo\DemoService::class);
 $containerBuilder->register(\Demo\DemoController::class,\Demo\DemoController::class)
     ->setArguments([new Reference(\Demo\DemoService::class)]);
 
-// nok, add demo service with repository into the service container
-$containerBuilder->register(\Demo\DemoRepository::class, \Demo\DemoRepository::class);
+
+
+/* Demo repository tests*/
+$containerBuilder->register('my_service_entity_repository', Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository::class)
+    ->setArguments([new Reference('doctrine.orm.entity_manager')]);
+
+$containerBuilder->register(\Demo\DemoRepository::class, \Demo\DoctrineDemoRepository::class);
+
 $containerBuilder->register(\Demo\DemoServiceWithRepository::class,\Demo\DemoServiceWithRepository::class)
     ->setArguments([new Reference(\Demo\DemoRepository::class)]);
+
 
 $containerBuilder->register('dispatcher', EventDispatcher\EventDispatcher::class)
     ->addMethodCall('addSubscriber', [new Reference('listener.router')])
@@ -56,6 +61,7 @@ $containerBuilder->register('framework', Framework::class)
         new Reference('container_controller_resolver'),
         new Reference('request_stack'),
         new Reference('argument_resolver'),
+        new Reference('doctrine.orm.entity_manager'),
     ])
 ;
 
