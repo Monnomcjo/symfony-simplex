@@ -9,7 +9,7 @@ class DemoEntity
 
     public function __construct(
         string $id = '',
-        string $name = '',
+        string $name = ''
     ) {
         $this->id = $id;
         $this->name = $name;

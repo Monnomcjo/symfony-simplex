@@ -38,13 +38,14 @@ $containerBuilder->register(\Demo\DemoService::class, \Demo\DemoService::class);
 $containerBuilder->register(\Demo\DemoController::class,\Demo\DemoController::class)
     ->setArguments([new Reference(\Demo\DemoService::class)]);
 
+/* New Demo repository tests*/
+$containerBuilder->register(\Demo\DemoEntity::class, \Demo\DemoEntity::class);
 
-
-/* Demo repository tests*/
 $containerBuilder->register('my_service_entity_repository', Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository::class)
     ->setArguments([new Reference('doctrine.orm.entity_manager')]);
 
-$containerBuilder->register(\Demo\DemoRepository::class, \Demo\DoctrineDemoRepository::class);
+$containerBuilder->register(\Demo\DemoRepository::class, \Demo\DoctrineDemoRepository::class)
+    ->setArguments([new Reference(\Demo\DemoEntity::class)]);
 
 $containerBuilder->register(\Demo\DemoServiceWithRepository::class,\Demo\DemoServiceWithRepository::class)
     ->setArguments([new Reference(\Demo\DemoRepository::class)]);
@@ -61,7 +62,7 @@ $containerBuilder->register('framework', Framework::class)
         new Reference('container_controller_resolver'),
         new Reference('request_stack'),
         new Reference('argument_resolver'),
-        new Reference('doctrine.orm.entity_manager'),
+        //new Reference('doctrine.orm.entity_manager'),
     ])
 ;
 
