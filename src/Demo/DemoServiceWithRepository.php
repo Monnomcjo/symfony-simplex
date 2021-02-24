@@ -2,19 +2,25 @@
 
 namespace Demo;
 
-use Demo\DoctrineDemoRepository;
+use Symfony\Component\DependencyInjection\Container;
+
+use Demo\DemoRepository;
 
 class DemoServiceWithRepository
 {
-  private $doctrineDemoRepository;
+  private $demoRepository;
 
-  public function __construct(DoctrineDemoRepository $doctrineDemoRepository)
+  public function __construct(Container $demoRepository)
   {
-      $this->doctrineDemoRepository = $doctrineDemoRepository;
+      $this->demoRepository = $demoRepository;
   }
 
-  public function helloWorld()
+  public function getDemoById(string $id = ''): ?DemoEntity
   {
-    return "Hello World!\n";
+      //var_dump($this->demoRepository->get(\Demo\DemoServiceWithRepository::class));
+      $demo = new DemoEntity();
+      $demo->setId($id);
+      return $demo;
   }
+
 }

@@ -4,6 +4,6 @@ namespace Demo;
 
 interface DemoRepository
 {
-    public function addDemo(Demo $demo);
-    public function getDemoById(string $id = ''): ?Demo;
+    public function addDemo(DemoEntity $demo);
+    public function getDemoById(string $id = ''): ?DemoEntity;
 }

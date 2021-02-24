@@ -16,7 +16,8 @@ $routes->add('hello2', new Routing\Route('/hello2', [
 
 // nok with repository dependency
 $routes->add('hello3', new Routing\Route('/hello3', [
-    '_controller' => 'Demo\DemoServiceWithRepository::helloWorld',
+    'id' => '100',
+    '_controller' => 'Demo\DemoServiceWithRepository::getDemoById',
 ]));
 
 return $routes;

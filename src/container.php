@@ -9,8 +9,6 @@ use Symfony\Component\HttpFoundation;
 use Symfony\Component\HttpKernel;
 use Symfony\Component\Routing;
 
-use Doctrine\Persistence\ManagerRegistry;
-
 $containerBuilder = new DependencyInjection\ContainerBuilder();
 $containerBuilder->register('context', Routing\RequestContext::class);
 $containerBuilder->register('matcher', Routing\Matcher\UrlMatcher::class)
@@ -40,14 +38,14 @@ $containerBuilder->register(\Demo\DemoService::class, \Demo\DemoService::class);
 $containerBuilder->register(\Demo\DemoController::class,\Demo\DemoController::class)
     ->setArguments([new Reference(\Demo\DemoService::class)]);
 
-/* New Demo repository tests*/
-//$containerBuilder->register(\Demo\DemoEntity::class, \Demo\DemoEntity::class);
 
-$containerBuilder->register(\Demo\DoctrineDemoRepository::class, \Demo\DoctrineDemoRepository::class)
-    ->setArguments([new Reference(\Doctrine\Persistence\ManagerRegistry::class)]);
+
+/* New Demo repository tests*/
+$containerBuilder->register(\Demo\DemoRepository::class, \Demo\DemoRepository::class)
+    ->setArguments([new Reference('service_container')]);
 
 $containerBuilder->register(\Demo\DemoServiceWithRepository::class,\Demo\DemoServiceWithRepository::class)
-    ->setArguments([new Reference(\Demo\DoctrineDemoRepository::class)]);
+    ->setArguments([new Reference('service_container')]);
 
 
 $containerBuilder->register('dispatcher', EventDispatcher\EventDispatcher::class)
@@ -61,7 +59,6 @@ $containerBuilder->register('framework', Framework::class)
         new Reference('container_controller_resolver'),
         new Reference('request_stack'),
         new Reference('argument_resolver'),
-        //new Reference('doctrine.orm.entity_manager'),
     ])
 ;
 

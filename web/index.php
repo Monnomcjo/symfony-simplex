@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 $routes = include __DIR__.'/../src/app.php';
 $container = include __DIR__.'/../src/container.php';
+//$container = include __DIR__.'/../src/services.php';
 
 $container->register('listener.string_response', StringResponseListener::class);
 $container->getDefinition('dispatcher')
