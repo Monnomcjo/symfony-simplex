@@ -1,6 +1,0 @@
-twig:
-    default_path: '%kernel.project_dir%/templates'
-    paths:
-        # directories are relative to the project root dir (but you
-        # can also use absolute directories)
-        'C:\wamp\www\ddd\Infrastructure\Symfony\Template': ~

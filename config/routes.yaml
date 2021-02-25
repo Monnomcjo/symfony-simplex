@@ -1,8 +1,0 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
-index:
-    path: /client/{clientId}
-    controller: Infrastructure\Controller\ClientController
-    defaults:
-        clientId: 1
