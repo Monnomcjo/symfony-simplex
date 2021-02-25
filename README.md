@@ -1,3 +1,6 @@
+# Introduction
+It is a two-part exercise. On the one hand, create your own Framework (https://symfony.com/doc/current/create_framework/index.html) and on the other hand experiment with Clean Architecture and Domain Driven Design.
+
 # Install and Run
 composer update
 
